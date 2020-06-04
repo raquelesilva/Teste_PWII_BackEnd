@@ -16,10 +16,21 @@ function addCarInsurance(req, result){
         result.json(sucess)
     })
 }
+function removeCarInsurence(req, result) {
+    let id = req.params.id
+
+    carInsurenceFunctions.removeCarInsurence(id, (error, sucess) => {
+        if (error) {
+            throw error
+            return
+        }
+        result.json(sucess)
+    })
+}
 
 module.exports = { 
     addCarInsurance: addCarInsurance,
-    // removeReservations: removeReservations,
+    removeCarInsurence: removeCarInsurence,
     // getReservations: getReservations,
     // getReservationsId: getReservationsId
 }
