@@ -1,7 +1,7 @@
 const SecurityTypeFunctions = require("./securityTypeFunctions")
 
 function getSecurityType(req, result) {
-    SecurityTypeFunctions.getSecurityType(description,id, (error, sucess) => {
+    SecurityTypeFunctions.getSecurityType( (error, sucess) => {
         if (error) {
             throw error
             return
