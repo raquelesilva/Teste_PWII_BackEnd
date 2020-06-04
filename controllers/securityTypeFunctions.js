@@ -4,7 +4,7 @@ const mySql = require("mysql")
 var connection = mySql.createConnection(dbConfig)
 
 function getSecurityType(callback) {
-    connection.start()
+    connection.connect()
     const sql = "SELECT descritivo FROM tp2_tipo_seguro"
     connection.query(sql, function (error, results) {
         if (error) callback(error)
@@ -14,7 +14,7 @@ function getSecurityType(callback) {
 }
 
 function getSecurityTypeID(id, callback) {
-    connection.start()
+    connection.connect()
     const sql = "SELECT descritivo FROM tp2_tipo_seguro WHERE id_tipo_seguro=? "
     connection.query(sql, [id], function (error, results) {
         if (error) callback(error)
