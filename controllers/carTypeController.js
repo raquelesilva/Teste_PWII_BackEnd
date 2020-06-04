@@ -1,7 +1,7 @@
 const carTypeFunctions = require("./carTypeFunctions")
 
 function getCarType(req, result) {
-    carTypeFunctions.getSecurityType(description,id, (error, sucess) => {
+    carTypeFunctions.getCarType((error, sucess) => {
         if (error) {
             throw error
             return
