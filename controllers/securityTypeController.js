@@ -1,6 +1,4 @@
-//Utilizar function criada para tratar os possiveis erros
- 
-const SecurityTypeFunctions = require("./SecurityTypeFunctions")
+const SecurityTypeFunctions = require("./securityTypeFunctions")
 
 function getSecurityType(req, result) {
     SecurityTypeFunctions.getSecurityType(description,id, (error, sucess) => {
@@ -14,6 +12,7 @@ function getSecurityType(req, result) {
 
 function getSecurityTypeID(req, result) {
      let id = req.params.id
+
      SecurityTypeFunctions.getSecurityTypeID(id, (error, sucess) => {
         if (error) {
             throw error
@@ -24,6 +23,6 @@ function getSecurityTypeID(req, result) {
 }
 
 module.exports = {
-    getSecurityType:getSecurityType,
-    getSecurityTypeID:getSecurityTypeID 
+    getSecurityType: getSecurityType,
+    getSecurityTypeID: getSecurityTypeID 
 }
