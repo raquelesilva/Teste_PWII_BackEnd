@@ -1,8 +1,8 @@
 const jsonwebtoken = require('jsonwebtoken')
-const config = require("../../config.json")
+const config = require("../config.json")
 const bcrypt = require("bcrypt")
 const mySql = require("mysql")
-const dbConfig = require("../../database/dbConfig.json")
+const dbConfig = require("../database/dbConfig.json")
 var connection = mySql.createConnection(dbConfig)
 //HEROKU
 // var connection = mySql.createConnection({ host: process.env.host, user: process.env.user, password: process.env.password, database: process.env.database })
@@ -11,8 +11,8 @@ var connection = mySql.createConnection(dbConfig)
 function login(pass, email, callback) {
     connection.connect()
 
-    const sql = "SELECT email,password FROM tp2_users WHERE email=?"
-    connection.query(sql, [email], function (error, rows, fields) {
+    const sql = "SELECT email,palavra_passe FROM tp2_utilizador WHERE email=?"
+    connection.query(sql, [email, pass], function (error, rows, fields) {
         if (!error) {
             //compara a password inserida com a password retornada pelo email 
             bcrypt.compare(pass, rows[0].password, function (error, results) {
@@ -33,11 +33,11 @@ function login(pass, email, callback) {
     connection.end()
 }
 //Funcao de Criar Conta-- por default o tipo de utilizador é sempre Cliente
-function addUser(name, pass, img, data, telemovel, idE, email, callback) {
+function addUser(name, email, pass, callback) {
     connection.connect()
 
-    const sql = "INSERT INTO utilizador (id_tipoUser,nome,password,foto_perfil,data_nascimento,telemovel,id_ipp,email_ipp) VALUES (?,?,?,?,?,?,?,?)"
-    connection.query(sql, [2, name, pass, img, data, telemovel, idE, email], function (error, results) {
+    const sql = "INSERT INTO tp2_utilizador (nome,email,palavra_passe) VALUES (?,?,?)"
+    connection.query(sql, [name, email, pass], function (error, results) {
         if (error) callback(error)
         callback(null, { sucess: true, message: "Utilizador Adicionado" })
     })
@@ -45,4 +45,4 @@ function addUser(name, pass, img, data, telemovel, idE, email, callback) {
     connection.end()
 }
 
-module.exports = { addUser: addUser, login: login, logout: logout }
+module.exports = { addUser: addUser, login: login }
