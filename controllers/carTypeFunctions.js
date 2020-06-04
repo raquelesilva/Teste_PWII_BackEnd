@@ -15,7 +15,7 @@ function getCarType(callback) {
 
 function getCarTypeID(id, callback) {
     connection.connect()
-    const sql = "SELECT descritivo FROM tp2_tipoCarro WHERE id_tipo=? "
+    const sql = "SELECT descritivo FROM tp2_tipoCarro WHERE id_tipo=?"
     connection.query(sql, [id], function (error, results) {
         if (error) callback(error)
         callback(null, { sucess: true, message: results })
