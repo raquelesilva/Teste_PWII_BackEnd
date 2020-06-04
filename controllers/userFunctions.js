@@ -2,14 +2,14 @@ const jsonwebtoken = require('jsonwebtoken')
 const config = require("../config.json")
 const bcrypt = require("bcrypt")
 const mySql = require("mysql")
-const dbConfig = require("../database/dbConfig.json")
-var connection = mySql.createConnection(dbConfig)
+// const dbConfig = require("../database/dbConfig.json")
+// var connection = mySql.createConnection(dbConfig)
 //HEROKU
-// var connection = mySql.createConnection({ host: process.env.host, user: process.env.user, password: process.env.password, database: process.env.database })
+var connection = mySql.createConnection({ host: process.env.host, user: process.env.user, password: process.env.password, database: process.env.database })
 
 //login com email e password
 function login(pass, email, callback) {
-    connection.connect()
+    connection
 
     const sql = "SELECT email,palavra_passe FROM tp2_utilizador WHERE email=?"
     connection.query(sql, [email, pass], function (error, rows, fields) {
@@ -30,11 +30,11 @@ function login(pass, email, callback) {
             callback(error)
         }
     })
-    connection.end()
+    connection
 }
 //Funcao de Criar Conta-- por default o tipo de utilizador é sempre Cliente
 function addUser(name, email, pass, callback) {
-    connection.connect()
+    connection
 
     const sql = "INSERT INTO tp2_utilizador (nome,email,palavra_passe) VALUES (?,?,?)"
     connection.query(sql, [name, email, pass], function (error, results) {
@@ -42,7 +42,7 @@ function addUser(name, email, pass, callback) {
         callback(null, { sucess: true, message: "Utilizador Adicionado" })
     })
 
-    connection.end()
+    connection
 }
 
 module.exports = { addUser: addUser, login: login }
